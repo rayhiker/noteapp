@@ -9,12 +9,12 @@
     <script src="app.js"></script>
   <h1>Note-Taking App</h1>
   <button id="add">New Note</button>
-  <h4>Click on note to select. All edits are saved automatically.</h4>
-  <div id="notes">Note Titles:<ol id="notelist"></ol></div>
+  <button id="clear">Clear All Notes</button>
+  <h4>Click on note title or content to select. All edits are saved automatically.</h4>
+  <div id="notes">Note Titles:<div id="notelist"><!--ol id="notelist"></ol--></div></div>
   <div id="note">
   Content of note:
-  <div><input type="text" id="title"></div>
-  <div><input type="text" id="content"></div>
+  <div><textarea rows="6" cols="50" id="content"></textarea></div>
   <div>Select color:
   <button id="r">Red</button>
   <button id="b">Blue</button>

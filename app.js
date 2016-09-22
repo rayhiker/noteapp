@@ -12,52 +12,61 @@ this.title = "New note";
 this.text = "Add text here";
 this.color = "white";
 }
-
+var init = function() {
+  /*if (localStorage.getItem("notes")){
+    notes = localStorage.getItem("notes");
+  }*/
+  showNotes();
+  clearNote();
+};
 var showNotes = function(){
   var output = "";
+  //localStorage.setItem("notes", notes);
   for(var item in notes){
-    output += "<li>";
-    output += notes[item].title;
-    output += "</li>";
+    output += "<input type='text' value='" + notes[item].title + "'>";
   }
+  //console.log(output);
   document.getElementById("notelist").innerHTML = output;
-  $("#notelist li").each(function(i){
+  $("#notelist input").each(function(i){
     $(this).on("click",{x:i}, function(event){
-      console.log("Item " + event.data.x + " selected");
+      //console.log("Item " + event.data.x + " selected");
       current = event.data.x;
+      $("#notelist input").each(function(i){
+        $(this).css("background-color", "gray");
+      });
+      $(this).css("background-color", "white");
       showNote();
     });
   });
 };
 
 var showNote = function(){
-  var title = document.getElementById("title");
-  title.value = notes[current].title;
-  //$("#title").innerHTML = notes[current].title;
   document.getElementById("content").value = notes[current].text;
   document.getElementById("content").style.backgroundColor = notes[current].color;
   $("#note").show();
 }
 
+$("#clear").on("click", function(event) {
+  note = [];
+  showNotes();
+});
+
 var clearNote = function(){
   $("#note").hide();
 }
-// Update title and content
-$("#title").change(function(event) {
-  notes[current].title = $(this).val();
-  showNotes();
-});
+
 $("#content").on("keypress", function(event) {
-  notes[current].text = $(this).val();
-  console.log("note " + current + ": " + notes[current].text);
+  notes[current].text = $(this).val() + String.fromCharCode(event.which);
+  //console.log("note " + current + ": " + notes[current].text);
 });
 
 // Add button: add a new note
 $("#add").on("click", function(event) {
 notes.push(new note());
 current = notes.length - 1;
-console.log("New note added with index " + current);
+//console.log("New note added with index " + current);
 showNotes();
+$("#notelist input:last").css("background-color", "white");
 showNote();
 });
 
@@ -85,7 +94,6 @@ $("#y").on("click", function(event) {
 $("#w").on("click", function(event) {
   changeColor("white");
 });
-showNotes();
-clearNote();
+init();
 }
 $(document).ready(main);
