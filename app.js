@@ -2,26 +2,34 @@ var main = function() {
 "use strict";
 
 var current;
-var notes = [
+var notes_default = [
 {"title": "Note", "text": "Test", "color": "red"},
 {"title": "Note again", "text": "Another note", "color": "blue"},
 {"title": "Note more", "text": "One more note", "color": "yellow"}];
 
+var notes = [];
 var note = function(){
 this.title = "New note";
 this.text = "Add text here";
 this.color = "white";
 }
 var init = function() {
-  /*if (localStorage.getItem("notes")){
-    notes = localStorage.getItem("notes");
-  }*/
+  if (localStorage.getItem("notes")){
+    notes = JSON.parse(localStorage.getItem("notes"));
+    /*for(var i in notes) {
+      console.log(notes[i].title + " " + notes[i].text + " " + notes[i].color);
+    }*/
+  }
   showNotes();
   clearNote();
 };
 var showNotes = function(){
   var output = "";
-  //localStorage.setItem("notes", notes);
+  if (notes.length > 0) {
+    localStorage.setItem("notes", JSON.stringify(notes));
+  } else {
+    localStorage.removeItem("notes");
+  }
   for(var item in notes){
     output += "<input type='text' value='" + notes[item].title + "'>";
   }
@@ -47,7 +55,15 @@ var showNote = function(){
 }
 
 $("#clear").on("click", function(event) {
-  note = [];
+  notes = [];
+  localStorage.removeItem("notes");
+  showNotes();
+  clearNote();
+});
+
+$("#default").on("click", function(event) {
+  notes = notes_default;
+  localStorage.removeItem("notes");
   showNotes();
 });
 
