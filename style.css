@@ -1,6 +1,6 @@
 #notes{
   float: left;
-  width: 200px;
+  width: 180px;
   border: 1px solid black;
   padding: 10px;
 }
@@ -11,9 +11,9 @@
 }
 #note{
   float: left;
-  width: 320px;
+  width: 300px;
   border: 1px dashed red;
-  padding: 10px;
+  padding: 10px 20px;
 }
 #content{
   border: 1px solid black;
@@ -35,5 +35,5 @@
   background-color: white;
 }
 #del{
-  float: center;
+    margin: 10px 0px;
 }
